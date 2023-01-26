@@ -25,6 +25,7 @@ const SearchBooks = () => {
     return () => saveBookIds(savedBookIds);
   });
 
+  // Initilizing saveBook mutation
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
 
@@ -72,7 +73,7 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
-
+    console.log("Book to save: ", bookToSave)
     try {
       const data = await saveBook({
         variables: { ...bookToSave }
@@ -85,6 +86,7 @@ const SearchBooks = () => {
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
+      console.log("Mutation Error", error)
       console.error(err);
     }
   };
